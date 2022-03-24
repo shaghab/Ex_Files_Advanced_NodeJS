@@ -4,6 +4,8 @@ function delay(seconds, callback) {
 
 console.log("starting delays");
 
+
+// this i an anti pattersn.. callback hell and pyramid of doom
 delay(2, () => {
   console.log("2 seconds");
   delay(1, () => {
