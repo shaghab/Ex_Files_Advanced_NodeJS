@@ -1,9 +1,9 @@
 function delay(seconds, callback) {
-    setTimeout(callback, seconds*1000);
+  setTimeout(callback, seconds * 1000);
 }
 
 delay(1, () => {
-    console.log('one second');
-})
+  console.log("one second");
+});
 
-console.log('end first tick');
+console.log("end first tick");
