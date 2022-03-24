@@ -5,6 +5,6 @@ var delay = (seconds) =>
     }, seconds * 1000);
   });
 
-delay(1).then((message) => console.log(message));
+delay(1).then(console.log);
 
 console.log("end first tick");
