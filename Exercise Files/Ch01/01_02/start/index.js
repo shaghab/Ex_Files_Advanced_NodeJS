@@ -1,9 +1,8 @@
-function delay(seconds, callback) {
-  setTimeout(callback, seconds * 1000);
-}
+var delay = (seconds) =>
+  new Promise((resolves, rejects) => {
+    setTimeout(resolves, seconds * 1000);
+  });
 
-delay(1, () => {
-  console.log("one second");
-});
+delay(1).then(() => console.log("the delay has endede"));
 
 console.log("end first tick");
