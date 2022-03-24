@@ -1,8 +1,10 @@
 var delay = (seconds) =>
   new Promise((resolves, rejects) => {
-    setTimeout(resolves, seconds * 1000);
+    setTimeout(() => {
+      resolves("the long delay has ended");
+    }, seconds * 1000);
   });
 
-delay(1).then(() => console.log("the delay has endede"));
+delay(1).then((message) => console.log(message));
 
 console.log("end first tick");
