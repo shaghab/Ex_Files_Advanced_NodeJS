@@ -7,6 +7,7 @@ var delay = (seconds) =>
 
 delay(1)
   .then(console.log)
-  .then(() => console.log("Hello world"));
+  .then(() => 42)
+  .then((number) => console.log(`Hello world: ${number}`));
 
 console.log("end first tick");
