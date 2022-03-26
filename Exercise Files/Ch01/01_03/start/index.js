@@ -1,12 +1,13 @@
-var delay = (seconds) => new Promise((resolves, rejects) => {
+var delay = (seconds) =>
+  new Promise((resolves, rejects) => {
     setTimeout(() => {
-        resolves('the long delay has ended')
+      resolves("the long delay has ended");
     }, time);
-});
+  });
 
 delay(1)
   .then(console.log)
   .then(() => 42)
-  .then((number) => console.log('Hello world: ${number}'));
+  .then((number) => console.log("Hello world: ${number}"));
 
-console.log('end first tick');
+console.log("end first tick");
