@@ -4,7 +4,11 @@ const readStream = createReadStream("../../powder-day.mp4");
 const writeStream = createWriteStream("./copy.mp4");
 
 readStream.on("data", (chunk) => {
-  writeStream.write(chunk);
+  const result = writeStream.write(chunk);
+  if (!result) {
+    console.log("backpressure");
+    readStream.pause();
+  }
 });
 
 readStream.on("error", (error) => {
@@ -13,6 +17,11 @@ readStream.on("error", (error) => {
 
 readStream.on("end", () => {
   writeStream.end();
+});
+
+writeStream.on("drain", () => {
+  console.log("drained");
+  readStream.resume();
 });
 
 writeStream.on("close", () => {
