@@ -9,20 +9,6 @@ var delay = (seconds) =>
     setTimeout(resolves, seconds * 1000);
   });
 
-Promise.all([
-  writeFile("readme.md", "Hello World"),
-  writeFile("readme.txt", "Hello World"),
-  writeFile("readme.json", '{ "hello": "world" }'),
-])
+Promise.race([delay(1), delay(5), delay(10), delay(10)])
   .then(() => readdir(__dirname))
-  .then(console.log)
-  .then(() => {
-    Promise.all([
-      unlink("readme.md"),
-      unlink("readme.txt"),
-      delay(3),
-      unlink("readme.json"),
-    ])
-      .then(() => readdir(__dirname))
-      .then(console.log);
-  });
+  .then(console.log);
