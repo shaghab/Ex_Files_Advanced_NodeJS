@@ -4,6 +4,8 @@ const { promisify } = require("util");
 const fileName = "../../powder-day.mp4";
 const fileInfo = promisify(stat);
 
+const multiparty = require("multiparty");
+
 const respondWithVideo = async (req, res) => {
   const { size } = await fileInfo(fileName);
   const range = req.headers.range;
@@ -29,9 +31,14 @@ const respondWithVideo = async (req, res) => {
 
 createServer((req, res) => {
   if (req.method === "POST") {
-    req.pipe(res);
-    req.pipe(process.stdout);
-    req.pipe(createWriteStream("./upload.file"));
+    let form = new multiparty.Form();
+    form.on("part", (part) => {
+      part.pipe(createWriteStream(`./${part.filename}`)).on("close", () => {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(`<h1>File uploaded: ${part.filename}</h1>`);
+      });
+    });
+    form.parse(req);
   } else if (req.url === "/video") {
     respondWithVideo(req, res);
   } else {
