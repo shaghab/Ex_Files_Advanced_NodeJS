@@ -3,7 +3,7 @@ const fs = require("fs");
 const readStream = fs.createReadStream("../../powder-day.mp4");
 
 readStream.on("data", (chunk) => {
-  //console.log("size: ", chunk.length);
+  console.log("size: ", chunk.length);
 });
 
 readStream.on("end", () => {
@@ -15,7 +15,11 @@ readStream.on("error", (error) => {
   console.error(error);
 });
 
+readStream.pause();
+
 process.stdin.on("data", (chunk) => {
-  var txt = chunk.toString().trim();
-  console.log("echo: ", txt);
+  if (chunk.toString().trim() === "finish") {
+    readStream.resume();
+  }
+  readStream.read();
 });
